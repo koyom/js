@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>自己分析</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="scripts.js"></script>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* 中央揃え */
+        background-color: #eff7ff;
+        color: #333;
+        min-height: 100vh; /* 最小のビューポートの高さ */
+    }
+    
+    .container {
+        width: 80%;
+        max-width: 1000px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .form-container {
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .questionSection {
+        margin-bottom: 20px;
+    }
+    
+    textarea {
+        width: 100%;
+        height: 150px;
+    }
+    
+    .goBackButton {
+        padding: 10px 20px;
+        background-color: #207ba5;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        margin-top: 20px; /* マージンを追加 */
+    }
+    
+    .character-container {
+        margin-top: 20px; /* マージンを追加 */
+    }
+    
+    .character-image {
+        width: 150px;
+        height: auto;
+    }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h2>自己分析</h2>
+        <div>
+            <label for="ideaName">名前:</label>
+            <input type="text" id="ideaName" name="ideaName">
+            <button id="submitIdea">登録</button>
+            
+        </div>
+
+        <div class="questionSection" id="question1" style="display:none;">
+            <label for="answer1">何がきっかけで起業したいと思ったのか？何のために起業をするのか？</label>
+            <textarea id="answer1" name="answer1" rows="4" cols="50"></textarea>
+            <button class="nextQuestion" data-next="question2">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+        <div class="questionSection" id="question2" style="display:none;">
+            <label for="answer2">あなたの成功はどのような状態か？物質的・精神的にどのような状態であり、周りにはどのような人がいるか？</label>
+            <textarea id="answer2" name="answer2" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question1">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question3">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+        <div class="questionSection" id="question3" style="display:none;">
+            <label for="answer3">成功するにあたり、今と未来とでどのようなギャップがあるか？</label>
+            <textarea id="answer3" name="answer3" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question2">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question4">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+        <div class="questionSection" id="question4" style="display:none;">
+            <label for="answer4">人からよく頼まれること、他の人より自信のある特技、自分にとって当たり前なのに周囲から称賛を受けることは何？</label>
+            <textarea id="answer4" name="answer4" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question3">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question5">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+
+        <div class="questionSection" id="question5" style="display:none;">
+            <label for="answer5">これまで何かを達成・成功したことは？その中でも達成するのに苦労したけどうまくいったことは？</label>
+            <textarea id="answer5" name="answer5" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question4">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question6">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+
+        <div class="questionSection" id="question6" style="display:none;">
+            <label for="answer6">挑戦して失敗したこととその理由は？その中でも苦しくて未解決のままに放置したことは？</label>
+            <textarea id="answer6" name="answer6" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question5">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question7">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+        <div class="questionSection" id="question7" style="display:none;">
+            <label for="answer7">リーダーや主役になって実行した経験とその時の苦労は？</label>
+            <textarea id="answer7" name="answer7" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question6">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question8">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+
+        <div class="questionSection" id="question8" style="display:none;">
+            <label for="answer8">涙が出るほど感激したことは？</label>
+            <textarea id="answer8" name="answer8" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question7">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question9">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+
+        <div class="questionSection" id="question9" style="display:none;">
+            <label for="answer9">夜も眠れないほど悩んだことは？</label>
+            <textarea id="answer9" name="answer9" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question8">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question10">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+
+        <div class="questionSection" id="question10" style="display:none;">
+            <label for="answer10">涙が出るほど悲しかったことは？</label>
+            <textarea id="answer10" name="answer10" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question9">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question11">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+
+        <div class="questionSection" id="question11" style="display:none;">
+            <label for="answer11">これまで長い間継続できたものは？</label>
+            <textarea id="answer11" name="answer11" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question10">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question12">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+        <div class="questionSection" id="question12" style="display:none;">
+            <label for="answer12">はまってお金を注ぎ込み許容範囲を超えたものは？</label>
+            <textarea id="answer12" name="answer12" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question11">前の質問に戻る</button>
+            <button class="temporarySave">一時保存</button>
+            <button id="finalSave">保存</button>
+        </div>
+        </div>
+
+    <div class="display-container" style="display:none;">
+        <h3>保存された情報</h3>
+        <p><strong>名前:</strong> <span id="displayIdeaName"></span></p>
+        <div id="displayAnswers"></div>
+    </div>
+</div>
+
+<!-- 最初のページに戻るボタン -->
+<button id="goBack" class="goBackButton">最初のページに戻る</button>
+
+<div class="character-container">
+    <img src="img/chara_final.png" class="character-image" alt="キャラクター">
+</div>
+
+<script>
+    $(document).ready(function() {
+        // ここに既存のイベントハンドラーを配置...
+    
+        // 最終保存のイベントハンドラーを追加
+        $('#finalSave').click(savePersonalityAnalysis);
+    });
+    
+    function savePersonalityAnalysis() {
+        const name = $('#ideaName').val(); // jQueryを使用して値を取得
+        const responses = [];
+        for (let i = 1; i <= 9; i++) {
+            responses.push($('#answer' + i).val()); // jQueryを使用して値を取得
+        }
+        localStorage.setItem('personalityAnalysis', JSON.stringify({name: name, responses: responses}));
+        alert('自己分析が保存されました。');
+    }
+    
+    // 他の関数...
+    </script>
+
+</body>
+</html>

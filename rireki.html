@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>保存された起業アイデアと回答の履歴</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #eff7ff;
+        color: #333;
+    }
+
+    #historyContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    .section {
+        width: 45%;
+        padding: 20px;
+        background-color: #fff;
+        margin: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        word-wrap: break-word; /* 長い単語も折り返しを許可 */
+        max-width: 100%; /* セクションの最大幅を親要素に合わせる */
+    }
+
+    .goBackButton {
+        padding: 10px 20px;
+        background-color: #207ba5;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+        #historyContainer {
+            flex-direction: column; /* 項目を縦に並べる */
+            align-items: center; /* 中央揃え */
+        }
+
+        .section {
+            width: 100%; /* コンテナの幅いっぱいに広げる */
+            margin: 10px 0; /* 上下のマージンを設定 */
+        }
+
+        .goBackButton {
+            width: 100%; /* ボタンの幅を調整 */
+        }
+    }
+
+</style>
+
+
+</head>
+<body>
+
+    <div id="historyContainer">
+        <div class="section">
+            <h3>起業案分析</h3>
+            <p><strong>アイデア名:</strong> <span id="displayIdeaName"></span></p>
+            <div id="displayAnswers"></div>
+        </div>
+        
+        <div class="section">
+            <h3>自己分析</h3>
+            <p><strong>名前:</strong> <span id="displayPersonalityName"></span></p>
+            <div id="displayPersonality"></div>
+        </div>
+    </div>
+
+    <!-- 最初のページに戻るボタンを追加 -->
+    <button id="goBackToStartPage" class="goBackButton">最初のページに戻る</button>
+
+    <script>
+    window.onload = function() {
+        // 起業案分析の履歴を表示
+        const ideaName = localStorage.getItem('ideaName');
+    const answers = JSON.parse(localStorage.getItem('answers')) || [];
+        const businessQuestions = [
+            "あなたが解決したい課題は何であり、どのような方法で解決するか？なぜそれを選んだか？あなたがその方法に対して提供できる力は何か？",
+            "その解決方法を提供することで誰からお金をどの程度獲得する想定か？",
+            "その解決方法を提供している競合はいるか？いるならばあなたが提供することでどのように対抗していくことができるか？いないならなぜこれまで提供する会社がいないか一度振り返ろう。もしかすると事業が成立しない可能性がある。",
+            "その事業の市場規模はどの程度か？",
+            "その事業は将来的にどのように展開していく想定か？",
+            "その事業にあなたの人生を賭けるにあたり、何を明らかにする必要があるか？事業に関する疑問ならば調査、インタビューをしましょう。あなた自身のことならじっくり考えて答えが出たら前に進もう。",
+            // 他の起業案分析の質問を追加
+        ];
+        document.getElementById('displayIdeaName').innerText = ideaName || '情報なし';
+    const answersContainer = document.getElementById('displayAnswers');
+    answersContainer.innerHTML = '';
+    businessQuestions.forEach((question, index) => {
+        const para = document.createElement("p");
+        const answer = answers.length > index ? answers[index] : '情報なし';
+        para.innerHTML = `<strong>Q${index + 1}:</strong> ${question}<br><strong>A:</strong> ${answer}`;
+        answersContainer.appendChild(para);
+    });
+
+        // 自己分析の履歴を表示
+        const personalityAnalysis = JSON.parse(localStorage.getItem('personalityAnalysis'));
+        const personalityQuestions = [
+        "何がきっかけで起業したいと思ったのか？何のために起業をするのか？",
+"あなたの成功はどのような状態か？物質的・精神的にどのような状態であり、周りにはどのような人がいるか？",
+"成功するにあたり、今と未来とでどのようなギャップがあるか？",
+"人からよく頼まれること、他の人より自信のある特技、自分にとって当たり前なのに周囲から称賛を受けることは何？",
+"これまで何かを達成・成功したことは？その中でも達成するのに苦労したけどうまくいったことは？",
+"挑戦して失敗したこととその理由は？その中でも苦しくて未解決のままに放置したことは？",
+"リーダーや主役になって実行した経験とその時の苦労は？",
+"涙が出るほど感激したことは？", 
+"夜も眠れないほど悩んだことは？",
+"涙が出るほど悲しかったことは？",
+"これまで長い間継続できたものは？",
+"はまってお金を注ぎ込み許容範囲を超えたものは？",
+            // 他の自己分析の質問を追加
+        ];
+        document.getElementById('displayPersonalityName').innerText = personalityAnalysis.name;
+    const responsesContainer = document.getElementById('displayPersonality');
+    responsesContainer.innerHTML = '';
+    personalityQuestions.forEach((question, index) => {
+        const para = document.createElement("p");
+        const response = personalityAnalysis.responses.length > index ? personalityAnalysis.responses[index] : '情報なし';
+        para.innerHTML = `<strong>Q${index + 1}:</strong> ${question}<br><strong>A:</strong> ${response}`;
+        responsesContainer.appendChild(para);
+    });
+}
+
+    $(document).ready(function() {
+        $("#goBackToStartPage").click(function() {
+            window.location.href = "http://127.0.0.1:5500/index.html";
+        });
+    });
+    </script>
+</body>
+</html>

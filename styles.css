@@ -1,0 +1,90 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7; /* 軽やかな背景色 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.button-container {
+  margin: 10px;
+  text-align: center;
+}
+
+button {
+  background-color: #3498db; /* 明るい青色 */
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9; /* ホバー時に少し濃い青色に */
+}
+
+.form-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* ソフトなシャドウ */
+  text-align: center;
+  width: 50%; /* コンテナの幅 */
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd; /* ソフトな境界線 */
+  border-radius: 4px;
+  width: calc(100% - 24px);
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap; /* 小さな画面での表示を調整 */
+}
+
+.display-container {
+  width: 50%;
+  padding: 20px;
+  background-color: #f0f0f0; /* ソフトなグレー */
+  border-left: 2px solid #ccc; /* 区切り線 */
+}
+
+.questionSection {
+  margin-bottom: 20px;
+}
+
+.display-answer {
+  margin-bottom: 10px;
+}
+
+.goBackButton {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  padding: 10px 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.goBackButton:hover {
+  background-color: #2980b9;
+}

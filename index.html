@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>起業アイデア＆パーソナリティサービス</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+    body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100vh;
+  background-color: #eff7ff;
+  color: #333;
+  position: relative;
+}
+.service-title {
+  text-align: center;
+  font-size: 36px;
+  color: #205081;
+  margin: 20px 0;
+}
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 500px;
+}
+button {
+  width: 150px; /* ボタンのサイズを大きく設定 */
+  height: 150px; /* ボタンのサイズを大きく設定 */
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #207ba5;
+  color: white;
+  border: none;
+  border-radius: 50%; /* ボタンを円形にする */
+  box-shadow: 0px 3px 6px #00000029;
+  transition: background-color 0.3s, transform 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* ボタン内のテキストと画像の位置調整のため */
+}
+button:hover {
+  background-color: #1b5d80;
+  transform: translateY(-2px);
+}
+#viewCombinedHistory {
+  background-color: #5cb85c;
+}
+.quote, .character-container {
+  position: absolute;
+  z-index: 2;
+}
+.quote {
+  top: 0;
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  padding: 10px 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.character-container {
+  right: 20px;
+  bottom: 20px;
+}
+.character-image {
+  width: 150px;
+  height: auto;
+}
+.button-with-image img {
+  width: 100px; /* 画像のサイズを調整 */
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.button-with-image span {
+  position: absolute;
+  z-index: 2;
+  color: white; /* テキストの色を白に設定 */
+}
+</style>
+</head>
+<body>
+
+<div class="quote">今日の名言: "成功は最終的なものではない、失敗は致命的なものではない: それは勇気を持続させることが重要だ。 - ウィンストン・チャーチル"</div>
+
+<h1 class="service-title">起業サポート</h1>
+
+<div class="button-container">
+  <button id="createBusinessIdea" class="button-with-image">
+    
+      <span>起業案分析</span>
+  </button>
+  <button id="registerPersonality" class="button-with-image" onclick="redirectToPersonalAnalysis()">
+     
+      <span>自己分析</span>
+  </button>
+</div>
+
+<button id="viewCombinedHistory" onclick="redirectToHistory()">履歴確認</button>
+
+<div class="character-container">
+  <img src="/img/chara_final.png" class="character-image" alt="キャラクター">
+</div>
+
+<script>
+    function redirectToPersonalAnalysis() {
+        window.location.href = "http://127.0.0.1:5500/personal.html";
+    }
+    // 新しく追加した関数
+    function redirectToHistory() {
+        window.location.href = "http://127.0.0.1:5500/rireki.html";
+    }
+// 名言のリスト
+const quotes = [
+        "成功は最終的なものではない、失敗は致命的なものではない: それは勇気を持続させることが重要だ。 - ウィンストン・チャーチル",
+        "あなたの時間は限られているので、他人の人生を生きるためにそれを使うな。 - スティーブ・ジョブズ",
+        "人生において重要なのは、多くを持っていることではなく、多くを楽しむことである。 - サミュエル・ジョンソン",
+        // 他の名言を追加...
+    ];
+
+    // 今日の日付に基づいて名言を選択
+    function getTodaysQuote() {
+        const today = new Date();
+        const index = today.getDate() % quotes.length; // 日付を名言リストのインデックスに変換
+        return quotes[index];
+    }
+
+    // 名言をページに表示
+    function displayQuote() {
+        const quoteElement = document.querySelector('.quote');
+        quoteElement.textContent = getTodaysQuote();
+    }
+
+    // ページの読み込み時に名言を表示
+    window.onload = function() {
+        displayQuote();
+        // 以前のonloadのコード...
+    }
+
+    $(document).ready(function() {
+        // 以前のjQueryのコード...
+    });
+
+</script>
+<script src="scripts.js"></script>
+</body>
+</html>

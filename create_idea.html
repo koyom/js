@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>起業アイデアの新規作成</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="scripts.js"></script>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* 中央揃え */
+        background-color: #eff7ff;
+        color: #333;
+        min-height: 100vh; /* 最小のビューポートの高さ */
+    }
+    
+    .container {
+        width: 80%;
+        max-width: 1000px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .form-container {
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .questionSection {
+        margin-bottom: 20px;
+    }
+    
+    textarea {
+        width: 100%;
+        height: 150px;
+    }
+    
+    .goBackButton {
+        padding: 10px 20px;
+        background-color: #207ba5;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        margin-top: 20px; /* マージンを追加 */
+    }
+    
+    .character-container {
+        margin-top: 20px; /* マージンを追加 */
+    }
+    
+    .character-image {
+        width: 150px;
+        height: auto;
+    }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h2>起業アイデアの新規作成</h2>
+        <div>
+            <label for="ideaName">アイデア名:</label>
+            <input type="text" id="ideaName" name="ideaName">
+            <button id="submitIdea">登録</button>
+            <button id="updateIdeaName" style="display:none;">更新</button>
+        </div>
+
+        <div class="questionSection" id="question1" style="display:none;">
+            <label for="answer1">あなたが解決したい課題は何であり、どのような方法で解決するか？なぜそれを選んだか？あなたがその方法に対して提供できる力は何か？</label>
+            <textarea id="answer1" name="answer1" rows="4" cols="50"></textarea>
+            <button class="nextQuestion" data-next="question2">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+        <div class="questionSection" id="question2" style="display:none;">
+            <label for="answer2">その解決方法を提供することで誰からお金をどの程度獲得する想定か？</label>
+            <textarea id="answer2" name="answer2" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question1">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question3">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+        <div class="questionSection" id="question3" style="display:none;">
+            <label for="answer3">その解決方法を提供している競合はいるか？いるならばあなたが提供することでどのように対抗していくことができるか？いないならなぜこれまで提供する会社がいないか一度振り返ろう。もしかすると事業が成立しない可能性がある。</label>
+            <textarea id="answer3" name="answer3" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question2">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question4">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+        <div class="questionSection" id="question4" style="display:none;">
+            <label for="answer4">その事業の市場規模はどの程度か？</label>
+            <textarea id="answer4" name="answer4" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question3">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question5">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+
+        <div class="questionSection" id="question5" style="display:none;">
+            <label for="answer5">その事業は将来的にどのように展開していく想定か？</label>
+            <textarea id="answer5" name="answer5" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question4">前の質問に戻る</button>
+            <button class="nextQuestion" data-next="question6">次の質問に進む</button>
+            <button class="temporarySave">一時保存</button>
+        </div>
+
+        <div class="questionSection" id="question6" style="display:none;">
+            <label for="answer6">その事業にあなたの人生を賭けるにあたり、何を明らかにする必要があるか？事業に関する疑問ならば調査、インタビューをしましょう。あなた自身のことならじっくり考えて答えが出たら前に進もう。</label>
+            <textarea id="answer6" name="answer6" rows="4" cols="50"></textarea>
+            <button class="prevQuestion" data-prev="question5">前の質問に戻る</button>
+            <button class="temporarySave">一時保存</button>
+            <button id="finalSave">保存</button>
+        </div>
+    </div>
+
+    <div class="display-container" style="display:none;">
+        <h3>保存された情報</h3>
+        <p><strong>アイデア名:</strong> <span id="displayIdeaName"></span></p>
+        <div id="displayAnswers"></div>
+    </div>
+</div>
+
+<!-- 最初のページに戻るボタン -->
+<button id="goBack" class="goBackButton">最初のページに戻る</button>
+
+<div class="character-container">
+    <img src="img/chara_final.png" class="character-image" alt="キャラクター">
+</div>
+
+<script>
+    function saveData() {
+        const ideaName = document.getElementById('ideaName').value;
+        const answers = [];
+        for (let i = 1; i <= 5; i++) {
+            answers.push(document.getElementById('answer' + i).value);
+        }
+        localStorage.setItem('ideaName', ideaName);
+        localStorage.setItem('answers', JSON.stringify(answers));
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const finalSaveButton = document.getElementById('finalSave');
+        if (finalSaveButton) { // finalSaveボタンが存在するかを確認
+            finalSaveButton.addEventListener('click', saveData);
+        }
+    });
+    </script>
+
+</body>
+</html>
